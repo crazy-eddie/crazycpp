@@ -58,10 +58,6 @@ struct string
         return push_front(c, detail_::make_indices(boost::mpl::int_<Size>()));
     }
 
-    constexpr string(char const (&str) [Size+1])
-        : string(str, detail_::make_indices(boost::mpl::int_<Size>()))
-    {}
-
     template < int I >
     constexpr string<Size+I-1> append(char const (&cstr)[I]) const
     {
@@ -78,10 +74,11 @@ struct string
                      , s.c_str() );
     }
 
-    template < typename ... T >
-    constexpr string(T ... t)
-        : arr{t..., '\0'}
+    constexpr string(char const (&str) [Size+1])
+        : string(str, detail_::make_indices(boost::mpl::int_<Size>()))
     {}
+
+    constexpr string() : arr{} {}
 
 private:
     char arr[Size+1];
@@ -94,13 +91,15 @@ private:
     template < int ... Indices >
     constexpr string<Size+1> push_back(char c, detail_::indices<Indices...>) const
     {
-        return string<Size+1>(arr[Indices]..., c);
+        char const newArr[] = {arr[Indices]..., c, '\0'};
+        return string<Size+1>(newArr);
     }
 
     template < int ... Indices >
     constexpr string<Size+1> push_front(char c, detail_::indices<Indices...>) const
     {
-        return string<Size+1>(c, arr[Indices]...);
+        char const newArr[] = {c, arr[Indices]..., '\0'};
+        return string<Size+1>(newArr);
     }
 
     template < int ... ThisIndices
@@ -110,7 +109,8 @@ private:
                                    , detail_::indices<ThatIndices...>
                                    , char const (&cstr) [I] ) const
     {
-        return string<Size+I-1>(arr[ThisIndices]..., cstr[ThatIndices]...);
+        char const newArr[] = {arr[ThisIndices]..., cstr[ThatIndices]..., '\0'};
+        return string<Size+I-1>(newArr);
     }
 };
 
