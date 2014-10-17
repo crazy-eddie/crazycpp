@@ -76,7 +76,7 @@ int main()
      * Target: x86_64-pc-linux-gnu
      * Thread model: posix
      */
-    using upper = boost::mpl::int_<100>; // 100 exceeds constexpr recursion limit, 99 OK.
+    using upper = boost::mpl::int_<100>;
     constexpr auto fizz_str = fizzbuzz(upper());
 
     std::cout << fizz_str.c_str() << std::endl;
