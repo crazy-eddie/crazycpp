@@ -1,0 +1,1 @@
+Code for blog entry: https://crazycpp.wordpress.com/2014/10/17/compile-time-strings-with-constexpr/
