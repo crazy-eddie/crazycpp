@@ -106,8 +106,8 @@ private:
              , int ... ThatIndices
              , int I >
     constexpr string<Size+I-1> append( detail_::indices<ThisIndices...>
-                                   , detail_::indices<ThatIndices...>
-                                   , char const (&cstr) [I] ) const
+                                     , detail_::indices<ThatIndices...>
+                                     , char const (&cstr) [I] ) const
     {
         char const newArr[] = {arr[ThisIndices]..., cstr[ThatIndices]..., '\0'};
         return string<Size+I-1>(newArr);
