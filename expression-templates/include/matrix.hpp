@@ -32,6 +32,13 @@ struct add_matrix
     {}
     add_matrix & operator = (add_matrix const&) = delete;
 
+    operator matrix () const
+    {
+        return matrix {{{ value(0,0), value(0,1), value(0,2)
+                        , value(1,0), value(1,1), value(1,2)
+                        , value(2,0), value(2,1), value(2,2) }}};
+    }
+
     int value(int i, int j) const
     {
         return right.value(i,j) + left.value(i,j);

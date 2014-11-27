@@ -33,12 +33,14 @@ BOOST_AUTO_TEST_CASE(addition)
                       , 3,2,1 }}};
 
     auto exp = m0 + m1;
+    matrix m = exp;
 
     for (int i = 0; i != 3; ++i)
     {
         for (int j = 0; j != 3; ++j)
         {
             BOOST_CHECK_EQUAL(exp.value(i,j), 10);
+            BOOST_CHECK_EQUAL(m.value(i,j), 10);
         }
     }
 
